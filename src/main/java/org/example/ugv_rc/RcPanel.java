@@ -10,9 +10,6 @@ import javafx.stage.Stage;
 
 public class RcPanel extends Application {
 
-  @FXML
-  private TextArea console;
-
   @Override
   public void start(Stage stage) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(RcPanel.class.getResource("ugv_rc.fxml"));
