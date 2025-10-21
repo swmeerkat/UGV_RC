@@ -22,11 +22,11 @@ public class RcController {
 
   @FXML
   private void initialize() {
-    console.appendText("UGV RC started\n");
     Properties properties = loadProperties();
     String host = properties.get("UGV02.host").toString();
-    console.appendText("ugv host: " + host + "\n");
+    log.info("ugv host: {}", host);
     this.ugv02 = initUgv02Client(host);
+    log.info("UGV RC initialized");
   }
 
   @FXML
@@ -36,14 +36,16 @@ public class RcController {
 
   private ESP32Client initUgv02Client(String host) {
     ESP32Client ugv02 = new ESP32Client(host);
-    console.appendText("Init gimbal: cmd_gimbal_ctrl_simple(0, 0)\n");
+    log.info("Init gimbal: cmd_gimbal_ctrl_simple(0, 0)");
     ugv02.cmd_gimbal_ctrl_simple(0, 0);
     return ugv02;
   }
 
   private Properties loadProperties() {
     Properties properties = new Properties();
-    InputStream stream = RcController.class.getResourceAsStream("application.properties");
+    InputStream stream =
+        Thread.currentThread().getContextClassLoader()
+            .getResourceAsStream("application.properties");
     try {
       properties.load(stream);
     } catch (IOException e) {
