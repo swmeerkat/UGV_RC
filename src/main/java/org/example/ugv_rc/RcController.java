@@ -4,34 +4,38 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 
 @Slf4j
 public class RcController {
 
-  @FXML
-  private Label welcomeText;
-  @FXML
-  private TextArea console;
-
-  private ESP32Client ugv02;
-
+  private KeyboardController kbctrl;
 
   @FXML
   private void initialize() {
     Properties properties = loadProperties();
     String host = properties.get("UGV02.host").toString();
     log.info("ugv host: {}", host);
-    this.ugv02 = initUgv02Client(host);
+    ESP32Client ugv02 = initUgv02Client(host);
+    kbctrl = new KeyboardController(ugv02);
     log.info("UGV RC initialized");
   }
 
   @FXML
-  protected void onHelloButtonClick() {
-    welcomeText.setText("Welcome to JavaFX Application!");
+  protected void keyPressed(KeyEvent event) {
+    kbctrl.keyPressed(event);
+  }
+
+  @FXML
+  protected void keyReleased(KeyEvent event) {
+    kbctrl.keyReleased(event);
+  }
+
+  @FXML
+  protected void enterKeyboardControl() {
+    // focus on button is sufficient
   }
 
   private ESP32Client initUgv02Client(String host) {

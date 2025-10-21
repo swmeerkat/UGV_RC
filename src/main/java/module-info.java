@@ -10,4 +10,5 @@ module org.example.ugv_rc {
 
   opens org.example.ugv_rc to javafx.fxml;
   exports org.example.ugv_rc;
+  exports org.example.ugv_rc.clients;
 }

@@ -86,9 +86,9 @@ public class ESP32Client {
    * Input:
    *  - L, R: speed of the wheel, value range 0.5 - -0.5
    */
-  public JsonNode cmd_speed_control(double l, double r) {
+  public void cmd_speed_control(double l, double r) {
     String cmd = "{\"T\":1,\"L\":" + l + ",\"R\":" + r + "}";
-    return get(cmd);
+    get(cmd);
   }
 
   /*
@@ -99,11 +99,11 @@ public class ESP32Client {
    *  - SPD: Speed, 0 means fastest
    *  - ACC: Acceleration, 0 means fastest
    */
-  public JsonNode cmd_gimbal_ctrl_simple(int pan, int tilt) {
+  public void cmd_gimbal_ctrl_simple(int pan, int tilt) {
     String cmd = "{\"T\":133,\"X\":" + pan + ",\"Y\":" + tilt + ",\"SPD\":0,\"ACC\":0} ";
     actPan = pan;
     actTilt = tilt;
-    return get(cmd);
+    get(cmd);
   }
 
   /*
@@ -111,7 +111,7 @@ public class ESP32Client {
    * Stops the pan-tilt movement at any time
    */
   public void cmd_gimbal_ctrl_stop() {
-    String cmd = "{\"T\":133} ";
+    String cmd = "{\"T\":135} ";
     get(cmd);
   }
 
