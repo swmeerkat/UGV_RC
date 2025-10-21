@@ -1,9 +1,15 @@
 package org.example.ugv_rc;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import lombok.extern.slf4j.Slf4j;
+import org.example.ugv_rc.clients.ESP32Client;
 
+@Slf4j
 public class RcController {
 
   @FXML
@@ -11,13 +17,39 @@ public class RcController {
   @FXML
   private TextArea console;
 
+  private ESP32Client ugv02;
+
+
   @FXML
   private void initialize() {
-    console.appendText("UGV RC started");
+    console.appendText("UGV RC started\n");
+    Properties properties = loadProperties();
+    String host = properties.get("UGV02.host").toString();
+    console.appendText("ugv host: " + host + "\n");
+    this.ugv02 = initUgv02Client(host);
   }
 
   @FXML
   protected void onHelloButtonClick() {
     welcomeText.setText("Welcome to JavaFX Application!");
+  }
+
+  private ESP32Client initUgv02Client(String host) {
+    ESP32Client ugv02 = new ESP32Client(host);
+    console.appendText("Init gimbal: cmd_gimbal_ctrl_simple(0, 0)\n");
+    ugv02.cmd_gimbal_ctrl_simple(0, 0);
+    return ugv02;
+  }
+
+  private Properties loadProperties() {
+    Properties properties = new Properties();
+    InputStream stream = RcController.class.getResourceAsStream("application.properties");
+    try {
+      properties.load(stream);
+    } catch (IOException e) {
+      log.error(e.getMessage());
+      throw new RuntimeException(e);
+    }
+    return properties;
   }
 }
