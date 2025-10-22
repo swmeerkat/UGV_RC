@@ -1,0 +1,42 @@
+.root {
+  -fx-font-size: 14px;
+  -fx-font-family: sans-serif;
+  -fx-background-color: #AAAAAA;
+}
+
+TextField {
+  -fx-alignment: center;
+}
+
+.panel {
+  -fx-spacing: 10;
+  -fx-padding: 10 10 10 10;
+  -fx-alignment: bottom-center;
+}
+
+.parameter-row {
+  -fx-spacing: 10;
+  -fx-alignment: bottom-center;
+}
+
+.parameter {
+  -fx-max-width: 120;
+  -fx-alignment: bottom-center;
+  -fx-text-alignment: center;
+  -fx-text-origin: bottom;
+}
+
+.button-row {
+  -fx-spacing: 10;
+  -fx-alignment: bottom-center;
+}
+
+#console {
+  -fx-min-height: 200;
+  -fx-background-color: white;
+  -fx-text-fill: green;
+}
+
+#console .content {
+ -fx-background-color: white;
+}

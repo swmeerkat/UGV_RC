@@ -188,7 +188,7 @@ public class ESP32Client {
         }
       });
       if (responseData != null) {
-        if (responseData.get(0) != null) {
+        if (!responseData.isEmpty()) {
           log.info("Response: {}", responseData);
         }
       }
