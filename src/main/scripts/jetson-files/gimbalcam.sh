@@ -3,6 +3,6 @@
 gst-launch-1.0 nvarguscamerasrc sensor-id=1 ! \
  'video/x-raw(memory:NVMM), width=3280, height=2464, framerate=21/1, format=NV12' ! \
  nvvidconv flip-method=2 ! \
- x264enc tune=zerolatency bitrate=16000000 speed-preset=superfast ! \
+ x264enc tune=zerolatency bitrate=8000 speed-preset=superfast ! \
  rtph264pay pt=96 ! \
  udpsink host=192.168.178.24 port=1234 sync=false -e
