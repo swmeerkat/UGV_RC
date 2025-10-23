@@ -1,6 +1,7 @@
 module org.example.ugv_rc {
   requires javafx.controls;
   requires javafx.fxml;
+  requires javafx.media;
   requires org.controlsfx.controls;
   requires lombok;
   requires org.apache.httpcomponents.core5.httpcore5;

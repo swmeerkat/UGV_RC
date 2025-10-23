@@ -1,11 +1,17 @@
 .root {
   -fx-font-size: 14px;
   -fx-font-family: sans-serif;
-  -fx-background-color: #AAAAAA;
+  -fx-background-color: #777777;
 }
 
 TextField {
   -fx-alignment: center;
+}
+
+.camera-section {
+  -fx-pref-width: 800;
+  -fx-pref-height: 600;
+  -fx-background-color: #222222
 }
 
 .panel {
@@ -20,10 +26,15 @@ TextField {
 }
 
 .parameter {
-  -fx-max-width: 120;
+  -fx-background-color: #BBBBBB;
+  -fx-max-width: 100;
   -fx-alignment: bottom-center;
   -fx-text-alignment: center;
   -fx-text-origin: bottom;
+}
+
+.parameter .content {
+  -fx-background-color: #BBBBBB;
 }
 
 .button-row {
@@ -33,10 +44,10 @@ TextField {
 
 #console {
   -fx-min-height: 200;
-  -fx-background-color: white;
+  -fx-background-color: #EEEEEE;
   -fx-text-fill: green;
 }
 
 #console .content {
- -fx-background-color: white;
+ -fx-background-color: #EEEEEE;
 }

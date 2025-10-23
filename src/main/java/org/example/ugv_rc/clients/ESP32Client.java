@@ -51,7 +51,7 @@ public class ESP32Client {
    *
    *  - temp
    */
-  public JsonNode retrieve_IMU_data() {
+  public JsonNode get_IMU_data() {
     String cmd = "{\"T\":126}";
     return get(cmd);
   }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<?import java.net.URL?>
+<?import javafx.scene.media.MediaView?>
 
 <VBox styleClass="panel" xmlns:fx="http://javafx.com/fxml"
   fx:controller="org.example.ugv_rc.RcController">
@@ -15,30 +15,26 @@
     <URL value="@ugv_rc.css"/>
   </stylesheets>
 
+  <HBox styleClass="camera-section">
+    <MediaView fx:id="mediaView"/>
+  </HBox>
+
   <HBox styleClass="parameter-row">
     <VBox styleClass="parameter">
-      <TextField fx:id="tf_L" editable="false"/>
-      <Label text="L"/>
+      <TextField fx:id="bf_roll" editable="false"/>
+      <Label text="ROLL"/>
     </VBox>
     <VBox styleClass="parameter">
-      <TextField fx:id="tf_R" editable="false"/>
-      <Label text="R"/>
+      <TextField fx:id="bf_pitch" editable="false"/>
+      <Label text="PITCH"/>
     </VBox>
     <VBox styleClass="parameter">
-      <TextField fx:id="tf_r" editable="false"/>
-      <Label text="r"/>
+      <TextField fx:id="bf_yaw" editable="false"/>
+      <Label text="YAW"/>
     </VBox>
     <VBox styleClass="parameter">
-      <TextField fx:id="tf_p" editable="false"/>
-      <Label text="p"/>
-    </VBox>
-    <VBox styleClass="parameter">
-      <TextField fx:id="tf_y" editable="false"/>
-      <Label text="y"/>
-    </VBox>
-    <VBox styleClass="parameter">
-      <TextField fx:id="tf_v" editable="false"/>
-      <Label text="v"/>
+      <TextField fx:id="bf_voltage" editable="false"/>
+      <Label text="VOLTAGE"/>
     </VBox>
   </HBox>
 

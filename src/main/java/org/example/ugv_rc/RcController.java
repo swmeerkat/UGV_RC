@@ -3,11 +3,13 @@ package org.example.ugv_rc;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.Properties;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.MediaView;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 
@@ -15,19 +17,17 @@ import org.example.ugv_rc.clients.ESP32Client;
 public class RcController {
 
   @FXML
+  private MediaView mediaView;
+  @FXML
   private TextArea console;
   @FXML
-  private TextField tf_L;
+  private TextField bf_roll;
   @FXML
-  private TextField tf_R;
+  private TextField bf_pitch;
   @FXML
-  private TextField tf_r;
+  private TextField bf_yaw;
   @FXML
-  private TextField tf_p;
-  @FXML
-  private TextField tf_y;
-  @FXML
-  private TextField tf_v;
+  private TextField bf_voltage;
 
   private KeyboardController kbctrl;
 
@@ -47,17 +47,15 @@ public class RcController {
   private void getBaseFeedback() {
     JsonNode result = ugv.cmd_base_feedback();
     console.appendText(result.toString() + "\n");
-    tf_L.setText(result.get("L").toString());
-    tf_R.setText(result.get("R").toString());
-    tf_r.setText(result.get("r").toString());
-    tf_p.setText(result.get("p").toString());
-    tf_y.setText(result.get("y").toString());
-    tf_v.setText(result.get("v").toString());
+    bf_roll.setText(roundParamValue("r", result));
+    bf_pitch.setText(roundParamValue("p", result));
+    bf_yaw.setText(roundParamValue("y", result));
+    bf_voltage.setText(roundParamValue("v", result));
   }
 
   @FXML
   private void getImuData() {
-    JsonNode result = ugv.retrieve_IMU_data();
+    JsonNode result = ugv.get_IMU_data();
     console.appendText(result.toString() + "\n");
   }
 
@@ -95,5 +93,11 @@ public class RcController {
       throw new RuntimeException(e);
     }
     return properties;
+  }
+
+  private String roundParamValue(String parameter, JsonNode result) {
+    Double num = Double.parseDouble(result.get(parameter).toString());
+    DecimalFormat df = new DecimalFormat("###.##");
+    return df.format(num);
   }
 }
