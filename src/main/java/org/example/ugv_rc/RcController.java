@@ -6,20 +6,17 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Properties;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaPlayer;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 
 @Slf4j
 public class RcController {
 
-  @FXML
-  private MediaView mediaView;
-  @FXML
-  private TextArea console;
   @FXML
   private TextField bf_roll;
   @FXML
@@ -28,10 +25,16 @@ public class RcController {
   private TextField bf_yaw;
   @FXML
   private TextField bf_voltage;
+  @FXML
+  private Button cameraButton;
+  @FXML
+  private MediaPlayer mediaPlayer;
+  @FXML
+  private TextArea console;
 
   private KeyboardController kbctrl;
-
-  ESP32Client ugv;
+  private ESP32Client ugv;
+  private boolean cameraOn = false;
 
   @FXML
   private void initialize() {
@@ -57,6 +60,21 @@ public class RcController {
   private void getImuData() {
     JsonNode result = ugv.get_IMU_data();
     console.appendText(result.toString() + "\n");
+  }
+
+  @FXML
+  protected void switchCamera() {
+    if (cameraOn) {
+      // switch camera off
+      cameraOn = false;
+      cameraButton.setText("Camera start");
+      mediaPlayer.pause();
+    } else {
+      // switch camera on
+      cameraOn = true;
+      cameraButton.setText("Camera pause");
+      mediaPlayer.play();
+    }
   }
 
   @FXML

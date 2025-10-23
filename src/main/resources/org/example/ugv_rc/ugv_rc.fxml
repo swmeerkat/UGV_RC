@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
+<?import javafx.scene.media.MediaPlayer?>
+<?import javafx.scene.media.Media?>
 <VBox styleClass="panel" xmlns:fx="http://javafx.com/fxml"
   fx:controller="org.example.ugv_rc.RcController">
   <stylesheets>
@@ -16,7 +18,15 @@
   </stylesheets>
 
   <HBox styleClass="camera-section">
-    <MediaView fx:id="mediaView"/>
+    <MediaView>
+      <mediaPlayer>
+        <MediaPlayer fx:id="mediaPlayer">
+          <media>
+            <Media source="http://127.0.0.0:1234"/>
+          </media>
+        </MediaPlayer>
+      </mediaPlayer>
+    </MediaView>
   </HBox>
 
   <HBox styleClass="parameter-row">
@@ -41,6 +51,7 @@
   <HBox styleClass="button-row">
     <Button text="Base feedback" onAction="#getBaseFeedback"/>
     <Button text="IMU data" onAction="#getImuData"/>
+    <Button fx:id="cameraButton" text="Camera start" onAction="#switchCamera"/>
     <Button text="Keyboard control" onAction="#enterKeyboardControl"
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
   </HBox>
