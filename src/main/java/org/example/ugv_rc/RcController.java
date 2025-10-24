@@ -9,8 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.MediaPlayer;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 
@@ -28,7 +28,7 @@ public class RcController {
   @FXML
   private Button cameraButton;
   @FXML
-  private MediaPlayer mediaPlayer;
+  private ImageView imageView;
   @FXML
   private TextArea console;
 
@@ -68,12 +68,10 @@ public class RcController {
       // switch camera off
       cameraOn = false;
       cameraButton.setText("Camera start");
-      mediaPlayer.pause();
     } else {
       // switch camera on
       cameraOn = true;
       cameraButton.setText("Camera pause");
-      mediaPlayer.play();
     }
   }
 

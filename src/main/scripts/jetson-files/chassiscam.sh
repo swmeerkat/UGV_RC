@@ -5,4 +5,4 @@ gst-launch-1.0 nvarguscamerasrc sensor-id=0 ! \
  nvvidconv flip-method=2 ! \
  x264enc tune=zerolatency bitrate=8000 speed-preset=superfast ! \
  rtph264pay pt=96 ! \
- udpsink host=192.168.178.24 port=12344 sync=false -e
+ udpsink host=192.168.178.24 port=5000 sync=false -e

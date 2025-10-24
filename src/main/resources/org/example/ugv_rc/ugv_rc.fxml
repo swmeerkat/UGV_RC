@@ -5,29 +5,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.media.MediaView?>
-
-<?import javafx.scene.media.MediaPlayer?>
-<?import javafx.scene.media.Media?>
 <VBox styleClass="panel" xmlns:fx="http://javafx.com/fxml"
   fx:controller="org.example.ugv_rc.RcController">
   <stylesheets>
     <URL value="@ugv_rc.css"/>
   </stylesheets>
 
-  <HBox styleClass="camera-section">
-    <MediaView>
-      <mediaPlayer>
-        <MediaPlayer fx:id="mediaPlayer">
-          <media>
-            <Media source="http://127.0.0.0:1234"/>
-          </media>
-        </MediaPlayer>
-      </mediaPlayer>
-    </MediaView>
-  </HBox>
+  <BorderPane styleClass="camera-section">
+    <center>
+      <ImageView fx:id="imageView"/>
+    </center>
+  </BorderPane>
 
   <HBox styleClass="parameter-row">
     <VBox styleClass="parameter">
@@ -56,5 +48,5 @@
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
   </HBox>
 
-  <TextArea fx:id="console" editable="false" />
+  <TextArea fx:id="console" editable="false"/>
 </VBox>
