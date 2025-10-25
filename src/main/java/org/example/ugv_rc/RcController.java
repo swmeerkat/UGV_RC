@@ -13,10 +13,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
+import org.example.ugv_rc.clients.JetsonOrinNanoClient;
 
 @Slf4j
 public class RcController {
 
+  @FXML
+  private ImageView imageView;
   @FXML
   private TextField bf_roll;
   @FXML
@@ -24,24 +27,31 @@ public class RcController {
   @FXML
   private TextField bf_yaw;
   @FXML
-  private TextField bf_voltage;
-  @FXML
   private Button cameraButton;
   @FXML
-  private ImageView imageView;
+  protected TextField ina_load;
+  @FXML
+  private TextField ina_current;
+  @FXML
+  private TextField ina_power;
+  @FXML
+  private TextField ina_percent;
   @FXML
   private TextArea console;
 
-  private KeyboardController kbctrl;
   private ESP32Client ugv;
+  private JetsonOrinNanoClient jetson;
+  private KeyboardController kbctrl;
   private boolean cameraOn = false;
 
   @FXML
   private void initialize() {
     Properties properties = loadProperties();
-    String host = properties.get("UGV02.host").toString();
-    log.info("ugv host: {}", host);
-    ugv = initUgv02Client(host);
+    String ugv_host = properties.get("UGV02.host").toString();
+    log.info("ugv host: {}", ugv_host);
+    ugv = initUgv02Client(ugv_host);
+    String jetson_host = properties.get("Jetson.host").toString();
+    jetson = new JetsonOrinNanoClient(jetson_host);
     kbctrl = new KeyboardController(ugv);
     log.info("UGV RC initialized");
   }
@@ -53,7 +63,6 @@ public class RcController {
     bf_roll.setText(roundParamValue("r", result));
     bf_pitch.setText(roundParamValue("p", result));
     bf_yaw.setText(roundParamValue("y", result));
-    bf_voltage.setText(roundParamValue("v", result));
   }
 
   @FXML
@@ -73,6 +82,17 @@ public class RcController {
       cameraOn = true;
       cameraButton.setText("Camera pause");
     }
+  }
+
+  @FXML
+  protected void getUgvPowerStatus() {
+    JsonNode result = jetson.get("/ugv_power_status");
+    console.appendText(result.toString() + "\n");
+    JsonNode status = result.get("ups3s");
+    ina_load.setText(status.get("v_load").textValue() + "V");
+    ina_current.setText(status.get("current").textValue() + "A");
+    ina_power.setText(status.get("power").textValue() + "W");
+    ina_percent.setText(status.get("percent").textValue() + "%");
   }
 
   @FXML

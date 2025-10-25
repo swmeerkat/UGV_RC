@@ -35,13 +35,26 @@
       <Label text="YAW"/>
     </VBox>
     <VBox styleClass="parameter">
-      <TextField fx:id="bf_voltage" editable="false"/>
-      <Label text="VOLTAGE"/>
+      <TextField fx:id="ina_load" editable="false"/>
+      <Label text="Load"/>
+    </VBox>
+    <VBox styleClass="parameter">
+      <TextField fx:id="ina_current" editable="false"/>
+      <Label text="Current"/>
+    </VBox>
+    <VBox styleClass="parameter">
+      <TextField fx:id="ina_power" editable="false"/>
+      <Label text="Power"/>
+    </VBox>
+    <VBox styleClass="parameter">
+      <TextField fx:id="ina_percent" editable="false"/>
+      <Label text="Capacity"/>
     </VBox>
   </HBox>
 
   <HBox styleClass="button-row">
     <Button text="Base feedback" onAction="#getBaseFeedback"/>
+    <Button text="UGV power status" onAction="#getUgvPowerStatus"/>
     <Button text="IMU data" onAction="#getImuData"/>
     <Button fx:id="cameraButton" text="Camera start" onAction="#switchCamera"/>
     <Button text="Keyboard control" onAction="#enterKeyboardControl"
