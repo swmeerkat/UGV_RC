@@ -6,20 +6,15 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Properties;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
-import org.example.ugv_rc.clients.JetsonOrinNanoClient;
 
 @Slf4j
 public class RcController {
 
-  @FXML
-  private ImageView imageView;
   @FXML
   private TextField bf_roll;
   @FXML
@@ -27,22 +22,12 @@ public class RcController {
   @FXML
   private TextField bf_yaw;
   @FXML
-  private Button cameraButton;
-  @FXML
-  protected TextField ina_load;
-  @FXML
-  private TextField ina_current;
-  @FXML
-  private TextField ina_power;
-  @FXML
-  private TextField ina_percent;
+  protected TextField bf_voltage;
   @FXML
   private TextArea console;
 
   private ESP32Client ugv;
-  private JetsonOrinNanoClient jetson;
   private KeyboardController kbctrl;
-  private boolean cameraOn = false;
 
   @FXML
   private void initialize() {
@@ -50,8 +35,6 @@ public class RcController {
     String ugv_host = properties.get("UGV02.host").toString();
     log.info("ugv host: {}", ugv_host);
     ugv = initUgv02Client(ugv_host);
-    String jetson_host = properties.get("Jetson.host").toString();
-    jetson = new JetsonOrinNanoClient(jetson_host);
     kbctrl = new KeyboardController(ugv);
     log.info("UGV RC initialized");
   }
@@ -63,36 +46,13 @@ public class RcController {
     bf_roll.setText(roundParamValue("r", result));
     bf_pitch.setText(roundParamValue("p", result));
     bf_yaw.setText(roundParamValue("y", result));
+    bf_voltage.setText(roundParamValue("v", result));
   }
 
   @FXML
   private void getImuData() {
     JsonNode result = ugv.get_IMU_data();
     console.appendText(result.toString() + "\n");
-  }
-
-  @FXML
-  protected void switchCamera() {
-    if (cameraOn) {
-      // switch camera off
-      cameraOn = false;
-      cameraButton.setText("Camera start");
-    } else {
-      // switch camera on
-      cameraOn = true;
-      cameraButton.setText("Camera pause");
-    }
-  }
-
-  @FXML
-  protected void getUgvPowerStatus() {
-    JsonNode result = jetson.get("/ugv_power_status");
-    console.appendText(result.toString() + "\n");
-    JsonNode status = result.get("ups3s");
-    ina_load.setText(status.get("v_load").textValue() + "V");
-    ina_current.setText(status.get("current").textValue() + "A");
-    ina_power.setText(status.get("power").textValue() + "W");
-    ina_percent.setText(status.get("percent").textValue() + "%");
   }
 
   @FXML
