@@ -52,7 +52,7 @@ public class RcController {
   @FXML
   private void getImuData() {
     JsonNode result = ugv.get_IMU_data();
-    console.appendText(result.toString() + "\n");
+    console.appendText(result.toPrettyString() + "\n");
   }
 
   @FXML

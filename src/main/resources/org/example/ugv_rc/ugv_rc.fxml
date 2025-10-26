@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+
 <VBox styleClass="panel" xmlns:fx="http://javafx.com/fxml"
   fx:controller="org.example.ugv_rc.RcController">
   <stylesheets>
@@ -39,5 +40,5 @@
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
   </HBox>
 
-  <TextArea fx:id="console" editable="false"/>
+  <TextArea fx:id="console" editable="false" VBox.vgrow="ALWAYS"/>
 </VBox>

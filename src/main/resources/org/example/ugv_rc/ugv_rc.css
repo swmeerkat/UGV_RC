@@ -8,16 +8,10 @@ TextField {
   -fx-alignment: center;
 }
 
-.camera-section {
-  -fx-pref-width: 800;
-  -fx-pref-height: 600;
-  -fx-background-color: #222222
-}
-
 .panel {
   -fx-spacing: 10;
-  -fx-padding: 10 10 10 10;
-  -fx-alignment: bottom-center;
+  -fx-padding: 20 10 10 10;
+  -fx-pref-width: 640;
 }
 
 .parameter-row {
@@ -26,9 +20,9 @@ TextField {
 }
 
 .parameter {
-  -fx-background-color: #BBBBBB;
   -fx-max-width: 100;
   -fx-alignment: bottom-center;
+  -fx-background-color: #BBBBBB;
   -fx-text-alignment: center;
   -fx-text-origin: bottom;
 }
@@ -40,10 +34,11 @@ TextField {
 .button-row {
   -fx-spacing: 10;
   -fx-alignment: bottom-center;
+  -fx-padding: 10 10 10 10;
 }
 
 #console {
-  -fx-min-height: 200;
+  -fx-min-height: 300;
   -fx-background-color: #EEEEEE;
   -fx-text-fill: green;
 }
