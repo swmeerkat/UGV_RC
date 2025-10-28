@@ -29,7 +29,7 @@
     </VBox>
     <VBox styleClass="parameter">
       <TextField fx:id="bf_voltage" editable="false"/>
-      <Label text="Load"/>
+      <Label text="Voltage"/>
     </VBox>
   </HBox>
 

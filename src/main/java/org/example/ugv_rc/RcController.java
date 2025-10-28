@@ -46,7 +46,7 @@ public class RcController {
     bf_roll.setText(roundParamValue("r", result));
     bf_pitch.setText(roundParamValue("p", result));
     bf_yaw.setText(roundParamValue("y", result));
-    bf_voltage.setText(roundParamValue("v", result));
+    bf_voltage.setText(roundParamValue("v", result) + "V");
   }
 
   @FXML
