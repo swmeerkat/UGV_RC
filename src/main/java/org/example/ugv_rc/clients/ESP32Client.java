@@ -1,19 +1,24 @@
 package org.example.ugv_rc.clients;
 
-import static org.apache.hc.client5.http.impl.classic.HttpClients.createDefault;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.apache.hc.core5.http.message.StatusLine;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 
 /*
  * References:
@@ -118,28 +123,28 @@ public class ESP32Client {
 
   public void pan_right() {
     if (actPan < 180) {
-      actPan+=2;
+      actPan += 2;
     }
     cmd_gimbal_ctrl_simple(actPan, actTilt);
   }
 
   public void pan_left() {
     if (actPan > -180) {
-      actPan-=2;
+      actPan -= 2;
     }
     cmd_gimbal_ctrl_simple(actPan, actTilt);
   }
 
   public void tilt_up() {
     if (actTilt < 90) {
-      actTilt+=2;
+      actTilt += 2;
     }
     cmd_gimbal_ctrl_simple(actPan, actTilt);
   }
 
   public void tilt_down() {
     if (actTilt > -30) {
-      actTilt-=2;
+      actTilt -= 2;
     }
     cmd_gimbal_ctrl_simple(actPan, actTilt);
   }
@@ -164,39 +169,49 @@ public class ESP32Client {
   private JsonNode get(String cmd) throws RuntimeException {
     JsonFactory jsonFactory = new JsonFactory();
     ObjectMapper objectMapper = new ObjectMapper(jsonFactory);
-    JsonNode responseData;
-    try (CloseableHttpClient client = createDefault()) {
-      ClassicHttpRequest httpGet = ClassicRequestBuilder.get()
-          .setScheme("http")
-          .setHttpHost(new HttpHost(host))
-          .setPath("/js")
-          .addParameter("json", cmd)
+    JsonNode responseData = JsonNodeFactory.instance.objectNode();
+    PoolingHttpClientConnectionManager connManager;
+    try {
+      connManager = PoolingHttpClientConnectionManagerBuilder.create()
           .build();
-      log.info("Request: {}", cmd);
-      responseData = client.execute(httpGet, response -> {
-        if (response.getCode() >= 300) {
-          log.error(new StatusLine(response).toString());
-          client.close();
-          throw new RuntimeException("ESPClientError");
-        }
-        final HttpEntity responseEntity = response.getEntity();
-        if (responseEntity == null) {
-          return null;
-        }
-        try (InputStream inputStream = responseEntity.getContent()) {
-          return objectMapper.readTree(inputStream);
-        }
-      });
-      if (responseData != null) {
-        if (!responseData.isEmpty()) {
+      {
+        connManager.setDefaultConnectionConfig(ConnectionConfig.custom()
+            .setConnectTimeout(Timeout.ofSeconds(2))
+            .setSocketTimeout(Timeout.ofSeconds(2))
+            .setTimeToLive(TimeValue.ofHours(1))
+            .build());
+        try (CloseableHttpClient client = HttpClients.custom()
+            .setConnectionManager(connManager).build()) {
+          ClassicHttpRequest httpGet = ClassicRequestBuilder.get()
+              .setScheme("http")
+              .setHttpHost(new HttpHost(host))
+              .setPath("/js")
+              .addParameter("json", cmd)
+              .build();
+          log.info("Request: {}", cmd);
+          responseData = client.execute(httpGet, response -> {
+            if (response.getCode() >= 300) {
+              log.error(new StatusLine(response).toString());
+              client.close();
+              throw new RuntimeException("ESPClientError");
+            }
+            final HttpEntity responseEntity = response.getEntity();
+            if (responseEntity == null) {
+              return JsonNodeFactory.instance.objectNode();
+            }
+            try (InputStream inputStream = responseEntity.getContent()) {
+              return objectMapper.readTree(inputStream);
+            }
+          });
           log.info("Response: {}", responseData);
+        } catch (IOException e) {
+          log.error("ESP32Client error: {}", e.getMessage());
         }
+        return responseData;
       }
-    } catch (IOException e) {
+    } catch (RuntimeException e) {
       log.error(e.getMessage());
-      throw new RuntimeException("ESPClientError");
     }
     return responseData;
   }
 }
-

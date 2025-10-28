@@ -92,8 +92,11 @@ public class RcController {
   }
 
   private String roundParamValue(String parameter, JsonNode result) {
-    Double num = Double.parseDouble(result.get(parameter).toString());
-    DecimalFormat df = new DecimalFormat("###.##");
-    return df.format(num);
+    if (!result.isEmpty()) {
+      Double num = Double.parseDouble(result.get(parameter).toString());
+      DecimalFormat df = new DecimalFormat("###.##");
+      return df.format(num);
+    }
+    return "";
   }
 }
