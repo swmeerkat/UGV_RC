@@ -8,6 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleButton?>
 <VBox styleClass="panel" xmlns:fx="http://javafx.com/fxml"
   fx:controller="org.example.ugv_rc.RcController">
   <stylesheets>
@@ -30,6 +35,45 @@
     <VBox styleClass="parameter">
       <TextField fx:id="bf_voltage" editable="false"/>
       <Label text="Voltage"/>
+    </VBox>
+  </HBox>
+
+  <HBox styleClass="button-row">
+    <VBox styleClass="vbox-grid">
+      <GridPane styleClass="button-grid">
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
+      </GridPane>
+      <TextField styleClass="button-grid-textfield" editable="false" text="Gimbal"/>
+    </VBox>
+    <VBox>
+      <GridPane styleClass="button-grid">
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
+      </GridPane>
+      <TextField styleClass="button-grid-textfield" editable="false" text="Chassis"/>
+    </VBox>
+    <VBox alignment="CENTER">
+      <RadioButton styleClass="button-grid-textfield">5</RadioButton>
+      <RadioButton styleClass="button-grid-textfield">4</RadioButton>
+      <RadioButton styleClass="button-grid-textfield">3</RadioButton>
+      <RadioButton styleClass="button-grid-textfield">2</RadioButton>
+      <RadioButton styleClass="button-grid-textfield">1</RadioButton>
+      <TextField styleClass="button-grid-textfield" editable="false" text="Speed"/>
     </VBox>
   </HBox>
 
