@@ -37,15 +37,15 @@
   <HBox styleClass="button-grid-section">
     <VBox>
       <GridPane styleClass="button-grid">
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;" onAction="#gul_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;" onAction="#gum_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;" onAction="#gur_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;" onAction="#gml_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;" onAction="#gmm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;" onAction="#gmr_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;" onAction="#gbl_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;" onAction="#gbm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;" onAction="#gbr_pressed"/>
       </GridPane>
       <TextField editable="false" text="Gimbal"/>
     </VBox>
@@ -76,6 +76,7 @@
   <HBox styleClass="button-row">
     <Button text="Base feedback" onAction="#getBaseFeedback"/>
     <Button text="IMU data" onAction="#getImuData"/>
+    <Button text="INA219 data" onAction="#getInaData"/>
     <Button text="Keyboard control" onAction="#enterKeyboardControl"
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
   </HBox>

@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
+import org.example.ugv_rc.clients.JetsonOrinNanoClient;
 
 @Slf4j
 public class RcController {
@@ -27,6 +28,7 @@ public class RcController {
   private TextArea console;
 
   private ESP32Client ugv;
+  private JetsonOrinNanoClient jetson;
   private KeyboardController kbctrl;
 
   @FXML
@@ -35,6 +37,9 @@ public class RcController {
     String ugv_host = properties.get("UGV02.host").toString();
     log.info("ugv host: {}", ugv_host);
     ugv = initUgv02Client(ugv_host);
+    String jetson_host = properties.get("Jetson.host").toString();
+    log.info("jetson host: {}", jetson_host);
+    jetson = new JetsonOrinNanoClient(jetson_host);
     kbctrl = new KeyboardController(ugv);
     log.info("UGV RC initialized");
   }
@@ -53,6 +58,66 @@ public class RcController {
   private void getImuData() {
     JsonNode result = ugv.get_IMU_data();
     console.appendText(result.toPrettyString() + "\n");
+  }
+
+  @FXML
+  private void getInaData() {
+    JsonNode result = jetson.get("/ugv_power_status");
+    console.appendText(result.toPrettyString() + "\n");
+  }
+
+  // gimbal upper left button
+  @FXML
+  private void gul_pressed() {
+    ugv.gimbal_step(-1, 1);
+  }
+
+  // gimbal upper middle button
+  @FXML
+  private void gum_pressed() {
+    ugv.gimbal_step(0, 1);
+  }
+
+  // gimbal upper right button
+  @FXML
+  private void gur_pressed() {
+    ugv.gimbal_step(1, 1);
+  }
+
+  // gimbal middle left button
+  @FXML
+  private void gml_pressed() {
+    ugv.gimbal_step(-1, 0);
+  }
+
+  // gimbal middle middle button
+  @FXML
+  private void gmm_pressed() {
+    ugv.cmd_gimbal_ctrl_simple(0, 0);
+  }
+
+  // gimbal middle right button
+  @FXML
+  private void gmr_pressed() {
+    ugv.gimbal_step(1, 0);
+  }
+
+  // gimbal bottom left button
+  @FXML
+  private void gbl_pressed() {
+    ugv.gimbal_step(-1, -1);
+  }
+
+  // gimbal bottom middle button
+  @FXML
+  private void gbm_pressed() {
+    ugv.gimbal_step(0, -1);
+  }
+
+  // gimbal bottom right button
+  @FXML
+  private void gbr_pressed() {
+    ugv.gimbal_step(1, -1);
   }
 
   @FXML

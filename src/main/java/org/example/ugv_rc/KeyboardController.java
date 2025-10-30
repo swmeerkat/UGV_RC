@@ -32,28 +32,28 @@ public class KeyboardController {
         break;
       case KeyCode.H:
         if (optionKeyPressed) {
-          esp32Client.pan_left();
+          esp32Client.gimbal_step(-1, 0);
         } else {
           esp32Client.cmd_speed_control(-0.15, 0.15);
         }
         break;
       case KeyCode.L:
         if (optionKeyPressed) {
-          esp32Client.pan_right();
+          esp32Client.gimbal_step(1, 0);
         } else {
           esp32Client.cmd_speed_control(0.15, -0.15);
         }
         break;
       case KeyCode.J:
         if (optionKeyPressed) {
-          esp32Client.tilt_up();
+          esp32Client.gimbal_step(0, 1);
         } else {
           esp32Client.cmd_speed_control(0.1, 0.1);
         }
         break;
       case KeyCode.K:
         if (optionKeyPressed) {
-          esp32Client.tilt_down();
+          esp32Client.gimbal_step(0, -1);
         } else {
           esp32Client.cmd_speed_control(-0.1, -0.1);
         }

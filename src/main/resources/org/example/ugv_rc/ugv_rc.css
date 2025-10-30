@@ -6,7 +6,7 @@
 
 TextField {
   -fx-alignment: center;
-  -fx-text-alignment: center
+  -fx-text-alignment: center;
   -fx-text-origin: bottom;
 }
 
@@ -75,6 +75,7 @@ TextField {
 
 #console {
   -fx-min-height: 300;
+  -fx-min-width: 600;
   -fx-background-color: #EEEEEE;
   -fx-text-fill: green;
 }

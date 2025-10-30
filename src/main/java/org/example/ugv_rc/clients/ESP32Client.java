@@ -25,6 +25,7 @@ import org.apache.hc.core5.util.Timeout;
  *  - https://www.waveshare.com/wiki/UGV02
  *  - https://www.waveshare.com/wiki/2-Axis_Pan-Tilt_Camera_Module
  */
+
 @Slf4j
 public class ESP32Client {
 
@@ -120,33 +121,32 @@ public class ESP32Client {
     get(cmd);
   }
 
-
-  public void pan_right() {
-    if (actPan < 180) {
-      actPan += 2;
+  /*
+   * delta_pan: -1 -> step left, 0 -> none, 1 -> step right
+   * delta_tilt: -1 -> step down, 0 -> none, 1 -> step up
+   */
+  public void gimbal_step(int delta_pan, int delta_tilt) {
+    int new_pan = actPan;
+    int new_tilt = actTilt;
+    if (delta_pan < 0) {
+      if (actPan > -180) {
+        new_pan = actPan - 2;
+      }
+    } else if (delta_pan > 0){
+      if (actPan < 180) {
+        new_pan = actPan + 2;
+      }
     }
-    cmd_gimbal_ctrl_simple(actPan, actTilt);
-  }
-
-  public void pan_left() {
-    if (actPan > -180) {
-      actPan -= 2;
+    if (delta_tilt < 0 ) {
+      if (actTilt > -30) {
+        new_tilt = actTilt - 2;
+      }
+    } else if (delta_tilt > 0) {
+      if (actTilt < 90) {
+        new_tilt = actTilt + 2;
+      }
     }
-    cmd_gimbal_ctrl_simple(actPan, actTilt);
-  }
-
-  public void tilt_up() {
-    if (actTilt < 90) {
-      actTilt += 2;
-    }
-    cmd_gimbal_ctrl_simple(actPan, actTilt);
-  }
-
-  public void tilt_down() {
-    if (actTilt > -30) {
-      actTilt -= 2;
-    }
-    cmd_gimbal_ctrl_simple(actPan, actTilt);
+    cmd_gimbal_ctrl_simple(new_pan, new_tilt);
   }
 
   /*
