@@ -30,12 +30,16 @@ import org.apache.hc.core5.util.Timeout;
 public class ESP32Client {
 
   private final String host;
+  private final double speedR;
+  private final double speedL;
   private int actPan;
   private int actTilt;
   private boolean panTiltLed;
 
   public ESP32Client(String host) {
     this.host = host;
+    this.speedR = 0.16;
+    this.speedL = 0.16;
     this.actPan = 0;
     this.actTilt = 0;
     this.panTiltLed = false;
@@ -92,8 +96,48 @@ public class ESP32Client {
    * Input:
    *  - L, R: speed of the wheel, value range 0.5 - -0.5
    */
-  public void cmd_speed_control(double l, double r) {
-    String cmd = "{\"T\":1,\"L\":" + l + ",\"R\":" + r + "}";
+  public void cmd_speed_control(MovingDirection direction) {
+    double left = 0;
+    double right = 0;
+    switch (direction) {
+      case NORTH -> {
+        left = speedL;
+        right = speedR;
+      }
+      case NORTHEAST -> {
+        left = speedL;
+        right = speedR * 0.5;
+      }
+      case EAST -> {
+        left = speedL;
+        right = -speedR;
+      }
+      case SOUTHEAST -> {
+        left = -speedL;
+        right = -speedR * 0.5;
+      }
+      case SOUTH -> {
+        left = -speedL;
+        right = -speedR;
+      }
+      case SOUTHWEST -> {
+        left = -speedL * 0.5;
+        right = -speedR;
+      }
+      case WEST -> {
+        left = -speedL;
+        right = speedR;
+      }
+      case NORTHWEST -> {
+        left = speedL * 0.5;
+        right = speedR;
+      }
+      case STOP -> {
+        left = 0;
+        right = 0;
+      }
+    }
+    String cmd = "{\"T\":1,\"L\":" + left + ",\"R\":" + right + "}";
     get(cmd);
   }
 
@@ -132,12 +176,12 @@ public class ESP32Client {
       if (actPan > -180) {
         new_pan = actPan - 2;
       }
-    } else if (delta_pan > 0){
+    } else if (delta_pan > 0) {
       if (actPan < 180) {
         new_pan = actPan + 2;
       }
     }
-    if (delta_tilt < 0 ) {
+    if (delta_tilt < 0) {
       if (actTilt > -30) {
         new_tilt = actTilt - 2;
       }

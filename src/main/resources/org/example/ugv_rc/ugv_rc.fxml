@@ -37,34 +37,33 @@
   <HBox styleClass="button-grid-section">
     <VBox>
       <GridPane styleClass="button-grid">
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;" onAction="#gul_pressed"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;" onAction="#gum_pressed"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;" onAction="#gur_pressed"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;" onAction="#gml_pressed"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;" onAction="#gmm_pressed"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;" onAction="#gmr_pressed"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;" onAction="#gbl_pressed"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;" onAction="#gbm_pressed"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;" onAction="#gbr_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;" onMousePressed="#gul_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;" onMousePressed="#gum_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;" onMousePressed="#gur_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;" onMousePressed="#gml_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;" onMousePressed="#gmm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;" onMousePressed="#gmr_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;" onMousePressed="#gbl_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;" onMousePressed="#gbm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;" onMousePressed="#gbr_pressed"/>
       </GridPane>
       <TextField editable="false" text="Gimbal"/>
     </VBox>
     <VBox>
       <GridPane styleClass="button-grid">
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;"/>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;" onMousePressed="#cul_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;" onMousePressed="#cum_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="0" text="&#x2B08;" onMousePressed="#cur_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" text="&#x2B05;" onMousePressed="#cml_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="&#x23F9;" onMousePressed="#cmm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="&#x2B95;" onMousePressed="#cmr_pressed"/>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" text="&#x2B0B;" onMousePressed="#cbl_pressed"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;" onMousePressed="#cbm_pressed"/>
+        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;" onMousePressed="#cbr_pressed"/>
       </GridPane>
       <TextField editable="false" text="Chassis"/>
     </VBox>
     <VBox maxWidth="70">
-      <RadioButton>5</RadioButton>
       <RadioButton>4</RadioButton>
       <RadioButton>3</RadioButton>
       <RadioButton>2</RadioButton>

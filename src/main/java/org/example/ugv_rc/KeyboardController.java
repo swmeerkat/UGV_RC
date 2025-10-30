@@ -4,6 +4,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
+import org.example.ugv_rc.clients.MovingDirection;
 
 /*
  Apple key codes:
@@ -27,48 +28,42 @@ public class KeyboardController {
 
   public void keyPressed(KeyEvent e) {
     switch (e.getCode()) {
-      case KeyCode.SHIFT:
-        optionKeyPressed = true;
-        break;
-      case KeyCode.H:
+      case KeyCode.SHIFT -> optionKeyPressed = true;
+      case KeyCode.H -> {
         if (optionKeyPressed) {
           esp32Client.gimbal_step(-1, 0);
         } else {
-          esp32Client.cmd_speed_control(-0.15, 0.15);
+          esp32Client.cmd_speed_control(MovingDirection.WEST);
         }
-        break;
-      case KeyCode.L:
-        if (optionKeyPressed) {
-          esp32Client.gimbal_step(1, 0);
-        } else {
-          esp32Client.cmd_speed_control(0.15, -0.15);
-        }
-        break;
-      case KeyCode.J:
+      }
+      case KeyCode.J -> {
         if (optionKeyPressed) {
           esp32Client.gimbal_step(0, 1);
         } else {
-          esp32Client.cmd_speed_control(0.1, 0.1);
+          esp32Client.cmd_speed_control(MovingDirection.NORTH);
         }
-        break;
-      case KeyCode.K:
+      }
+      case KeyCode.K -> {
         if (optionKeyPressed) {
           esp32Client.gimbal_step(0, -1);
         } else {
-          esp32Client.cmd_speed_control(-0.1, -0.1);
+          esp32Client.cmd_speed_control(MovingDirection.SOUTH);
         }
-        break;
-      case KeyCode.A:
-        esp32Client.turn_pan_tilt_led();
-        break;
-      case KeyCode.SPACE:
-        esp32Client.cmd_speed_control(-0, -0);
+      }
+      case KeyCode.L -> {
+        if (optionKeyPressed) {
+          esp32Client.gimbal_step(1, 0);
+        } else {
+          esp32Client.cmd_speed_control(MovingDirection.EAST);
+        }
+      }
+      case KeyCode.A -> esp32Client.turn_pan_tilt_led();
+      case KeyCode.SPACE -> {
+        esp32Client.cmd_speed_control(MovingDirection.STOP);
         esp32Client.cmd_gimbal_ctrl_stop();
-        break;
-      default:
-        log.info("unexpected key pressed: char={} code={}, ignored",
-            e.getText(), e.getCode());
-        break;
+      }
+      default -> log.info("unexpected key pressed: char={} code={}, ignored",
+          e.getText(), e.getCode());
     }
   }
 

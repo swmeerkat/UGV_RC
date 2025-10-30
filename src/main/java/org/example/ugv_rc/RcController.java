@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 import org.example.ugv_rc.clients.JetsonOrinNanoClient;
+import org.example.ugv_rc.clients.MovingDirection;
 
 @Slf4j
 public class RcController {
@@ -118,6 +119,60 @@ public class RcController {
   @FXML
   private void gbr_pressed() {
     ugv.gimbal_step(1, -1);
+  }
+
+  // chassis upper left button
+  @FXML
+  private void cul_pressed() {
+    ugv.cmd_speed_control(MovingDirection.NORTHWEST);
+  }
+
+  // chassis upper middle button
+  @FXML
+  private void cum_pressed() {
+    ugv.cmd_speed_control(MovingDirection.NORTH);
+  }
+
+  // chassis upper right button
+  @FXML
+  private void cur_pressed() {
+    ugv.cmd_speed_control(MovingDirection.NORTHEAST);
+  }
+
+  // chassis middle left button
+  @FXML
+  private void cml_pressed() {
+    ugv.cmd_speed_control(MovingDirection.WEST);
+  }
+
+  // chassis middle middle button
+  @FXML
+  private void cmm_pressed() {
+    ugv.cmd_speed_control(MovingDirection.STOP);
+  }
+
+  // chassis middle right button
+  @FXML
+  private void cmr_pressed() {
+    ugv.cmd_speed_control(MovingDirection.EAST);
+  }
+
+  // chassis bottom left button
+  @FXML
+  private void cbl_pressed() {
+    ugv.cmd_speed_control(MovingDirection.SOUTHWEST);
+  }
+
+  // chassis bottom middle button
+  @FXML
+  private void cbm_pressed() {
+    ugv.cmd_speed_control(MovingDirection.SOUTH);
+  }
+
+  // chassis bottom right button
+  @FXML
+  private void cbr_pressed() {
+    ugv.cmd_speed_control(MovingDirection.SOUTHEAST);
   }
 
   @FXML
