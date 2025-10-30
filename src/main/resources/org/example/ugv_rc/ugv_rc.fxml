@@ -34,8 +34,8 @@
     </VBox>
   </HBox>
 
-  <HBox styleClass="button-row">
-    <VBox styleClass="vbox-grid">
+  <HBox styleClass="button-grid-section">
+    <VBox>
       <GridPane styleClass="button-grid">
         <Button GridPane.columnIndex="0" GridPane.rowIndex="0" text="&#x2B09;"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="&#x2B06;"/>
@@ -47,7 +47,7 @@
         <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
         <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
       </GridPane>
-      <TextField styleClass="button-grid-textfield" editable="false" text="Gimbal"/>
+      <TextField editable="false" text="Gimbal"/>
     </VBox>
     <VBox>
       <GridPane styleClass="button-grid">
@@ -61,15 +61,15 @@
         <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="&#x2B07;"/>
         <Button GridPane.columnIndex="2" GridPane.rowIndex="2" text="&#x2B0A;"/>
       </GridPane>
-      <TextField styleClass="button-grid-textfield" editable="false" text="Chassis"/>
+      <TextField editable="false" text="Chassis"/>
     </VBox>
-    <VBox alignment="CENTER">
-      <RadioButton styleClass="button-grid-textfield">5</RadioButton>
-      <RadioButton styleClass="button-grid-textfield">4</RadioButton>
-      <RadioButton styleClass="button-grid-textfield">3</RadioButton>
-      <RadioButton styleClass="button-grid-textfield">2</RadioButton>
-      <RadioButton styleClass="button-grid-textfield">1</RadioButton>
-      <TextField styleClass="button-grid-textfield" editable="false" text="Speed"/>
+    <VBox maxWidth="70">
+      <RadioButton>5</RadioButton>
+      <RadioButton>4</RadioButton>
+      <RadioButton>3</RadioButton>
+      <RadioButton>2</RadioButton>
+      <RadioButton>1</RadioButton>
+      <TextField editable="false" text="Speed"/>
     </VBox>
   </HBox>
 
