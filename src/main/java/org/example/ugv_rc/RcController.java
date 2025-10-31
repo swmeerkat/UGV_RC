@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 import org.example.ugv_rc.clients.JetsonOrinNanoClient;
@@ -28,6 +33,8 @@ public class RcController {
   @FXML
   private TextArea console;
 
+  @Setter
+  private Stage stage;
   private ESP32Client ugv;
   private JetsonOrinNanoClient jetson;
   private KeyboardController kbctrl;
@@ -42,6 +49,16 @@ public class RcController {
     log.info("jetson host: {}", jetson_host);
     jetson = new JetsonOrinNanoClient(jetson_host);
     kbctrl = new KeyboardController(ugv);
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        getBaseFeedback();
+      }
+    }, 0, 3000);
+    Platform.runLater(() -> {
+      stage.setOnCloseRequest(_ -> timer.cancel());
+    });
     log.info("UGV RC initialized");
   }
 
@@ -219,4 +236,5 @@ public class RcController {
     }
     return "";
   }
+
 }

@@ -72,13 +72,13 @@
     </VBox>
   </HBox>
 
+  <TextArea fx:id="console" editable="false" VBox.vgrow="ALWAYS"/>
+
   <HBox styleClass="button-row">
-    <Button text="Base feedback" onAction="#getBaseFeedback"/>
     <Button text="IMU data" onAction="#getImuData"/>
     <Button text="INA219 data" onAction="#getInaData"/>
     <Button text="Keyboard control" onAction="#enterKeyboardControl"
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
   </HBox>
 
-  <TextArea fx:id="console" editable="false" VBox.vgrow="ALWAYS"/>
 </VBox>
