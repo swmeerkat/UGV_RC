@@ -62,6 +62,9 @@ TextField {
   -fx-font-family: sans-serif;
   -fx-font-size: 24;
 }
+.button-grid .button:pressed {
+  -fx-background-color: #44ddff;
+}
 
 .button-row {
   -fx-spacing: 10;
@@ -69,8 +72,16 @@ TextField {
   -fx-padding: 10 10 20 10;
 }
 
-.button-row Button {
+.button-row button {
   -fx-background-color: #DDDDDD;
+}
+
+.button-row .button:focused {
+  -fx-background-color: #22bbff;
+}
+
+.button-row .button:pressed {
+  -fx-background-color: #44ddff;
 }
 
 #console {
