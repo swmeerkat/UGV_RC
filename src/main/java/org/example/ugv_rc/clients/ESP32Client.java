@@ -30,19 +30,24 @@ import org.apache.hc.core5.util.Timeout;
 public class ESP32Client {
 
   private final String host;
-  private final double speedR;
-  private final double speedL;
+  private double speedR;
+  private double speedL;
   private int actPan;
   private int actTilt;
   private boolean panTiltLed;
 
   public ESP32Client(String host) {
     this.host = host;
-    this.speedR = 0.16;
-    this.speedL = 0.16;
+    this.speedR = 0.14;
+    this.speedL = 0.14;
     this.actPan = 0;
     this.actTilt = 0;
     this.panTiltLed = false;
+  }
+
+  public void setSpeed(SpeedLevel level) {
+    this.speedR = level.getSpeed();
+    this.speedL = level.getSpeed();
   }
 
   /*

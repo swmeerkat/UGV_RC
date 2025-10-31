@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.ugv_rc.clients.ESP32Client;
 import org.example.ugv_rc.clients.JetsonOrinNanoClient;
 import org.example.ugv_rc.clients.MovingDirection;
+import org.example.ugv_rc.clients.SpeedLevel;
 
 @Slf4j
 public class RcController {
@@ -190,6 +191,26 @@ public class RcController {
   @FXML
   private void cbr_pressed() {
     repeat_chassis_cmd(MovingDirection.SOUTHEAST);
+  }
+
+  @FXML
+  private void radio_button4() {
+    ugv.setSpeed(SpeedLevel.LEVEL_FOUR);
+  }
+
+  @FXML
+  private void radio_button3() {
+    ugv.setSpeed(SpeedLevel.LEVEL_THREE);
+  }
+
+  @FXML
+  private void radio_button2() {
+    ugv.setSpeed(SpeedLevel.LEVEL_TWO);
+  }
+
+  @FXML
+  private void radio_button1() {
+    ugv.setSpeed(SpeedLevel.LEVEL_ONE);
   }
 
   @FXML

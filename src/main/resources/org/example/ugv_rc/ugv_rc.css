@@ -32,6 +32,7 @@ TextField {
 
 .button-grid-section {
   -fx-alignment: center;
+  -fx-padding: 0 0 10 0;
 }
 
 .button-grid-section VBox {
@@ -69,7 +70,7 @@ TextField {
 .button-row {
   -fx-spacing: 10;
   -fx-alignment: bottom-center;
-  -fx-padding: 10 10 20 10;
+  -fx-padding: 10 10 10 10;
 }
 
 .button-row button {
