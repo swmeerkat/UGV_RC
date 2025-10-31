@@ -58,9 +58,7 @@ public class RcController {
         getBaseFeedback();
       }
     }, 0, 3000);
-    Platform.runLater(() -> {
-      stage.setOnCloseRequest(_ -> feedbackTimer.cancel());
-    });
+    Platform.runLater(() -> stage.setOnCloseRequest(_ -> feedbackTimer.cancel()));
     log.info("UGV RC initialized");
   }
 
