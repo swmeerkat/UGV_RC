@@ -264,6 +264,7 @@ public class RcController {
 
   @FXML
   private void chassis_released() {
+    ugv.cmd_speed_control(MovingDirection.STOP);
     chassisTimer.cancel();
   }
 }
