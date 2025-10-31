@@ -38,6 +38,8 @@ public class RcController {
   private ESP32Client ugv;
   private JetsonOrinNanoClient jetson;
   private KeyboardController kbctrl;
+  private Timer gimbalTimer;
+  private Timer chassisTimer;
 
   @FXML
   private void initialize() {
@@ -49,15 +51,15 @@ public class RcController {
     log.info("jetson host: {}", jetson_host);
     jetson = new JetsonOrinNanoClient(jetson_host);
     kbctrl = new KeyboardController(ugv);
-    Timer timer = new Timer();
-    timer.scheduleAtFixedRate(new TimerTask() {
+    Timer feedbackTimer = new Timer();
+    feedbackTimer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
         getBaseFeedback();
       }
     }, 0, 3000);
     Platform.runLater(() -> {
-      stage.setOnCloseRequest(_ -> timer.cancel());
+      stage.setOnCloseRequest(_ -> feedbackTimer.cancel());
     });
     log.info("UGV RC initialized");
   }
@@ -65,7 +67,7 @@ public class RcController {
   @FXML
   private void getBaseFeedback() {
     JsonNode result = ugv.cmd_base_feedback();
-    console.appendText(result.toString() + "\n");
+    //console.appendText(result.toString() + "\n");
     bf_roll.setText(roundParamValue("r", result));
     bf_pitch.setText(roundParamValue("p", result));
     bf_yaw.setText(roundParamValue("y", result));
@@ -87,25 +89,25 @@ public class RcController {
   // gimbal upper left button
   @FXML
   private void gul_pressed() {
-    ugv.gimbal_step(-1, 1);
+    repeat_gimbal_cmd(-1, 1);
   }
 
   // gimbal upper middle button
   @FXML
   private void gum_pressed() {
-    ugv.gimbal_step(0, 1);
+    repeat_gimbal_cmd(0, 1);
   }
 
   // gimbal upper right button
   @FXML
   private void gur_pressed() {
-    ugv.gimbal_step(1, 1);
+    repeat_gimbal_cmd(1, 1);
   }
 
   // gimbal middle left button
   @FXML
   private void gml_pressed() {
-    ugv.gimbal_step(-1, 0);
+    repeat_gimbal_cmd(-1, 0);
   }
 
   // gimbal middle middle button
@@ -117,79 +119,79 @@ public class RcController {
   // gimbal middle right button
   @FXML
   private void gmr_pressed() {
-    ugv.gimbal_step(1, 0);
+    repeat_gimbal_cmd(1, 0);
   }
 
   // gimbal bottom left button
   @FXML
   private void gbl_pressed() {
-    ugv.gimbal_step(-1, -1);
+    repeat_gimbal_cmd(-1, -1);
   }
 
   // gimbal bottom middle button
   @FXML
   private void gbm_pressed() {
-    ugv.gimbal_step(0, -1);
+    repeat_gimbal_cmd(0, -1);
   }
 
   // gimbal bottom right button
   @FXML
   private void gbr_pressed() {
-    ugv.gimbal_step(1, -1);
+    repeat_gimbal_cmd(1, -1);
   }
 
   // chassis upper left button
   @FXML
   private void cul_pressed() {
-    ugv.cmd_speed_control(MovingDirection.NORTHWEST);
+    repeat_chassis_cmd(MovingDirection.NORTHWEST);
   }
 
   // chassis upper middle button
   @FXML
   private void cum_pressed() {
-    ugv.cmd_speed_control(MovingDirection.NORTH);
+    repeat_chassis_cmd(MovingDirection.NORTH);
   }
 
   // chassis upper right button
   @FXML
   private void cur_pressed() {
-    ugv.cmd_speed_control(MovingDirection.NORTHEAST);
+    repeat_chassis_cmd(MovingDirection.NORTHEAST);
   }
 
   // chassis middle left button
   @FXML
   private void cml_pressed() {
-    ugv.cmd_speed_control(MovingDirection.WEST);
+    repeat_chassis_cmd(MovingDirection.WEST);
   }
 
   // chassis middle middle button
   @FXML
   private void cmm_pressed() {
-    ugv.cmd_speed_control(MovingDirection.STOP);
+    repeat_chassis_cmd(MovingDirection.STOP);
   }
 
   // chassis middle right button
   @FXML
   private void cmr_pressed() {
-    ugv.cmd_speed_control(MovingDirection.EAST);
+    repeat_chassis_cmd(MovingDirection.EAST);
   }
 
   // chassis bottom left button
   @FXML
   private void cbl_pressed() {
-    ugv.cmd_speed_control(MovingDirection.SOUTHWEST);
+    repeat_chassis_cmd(MovingDirection.SOUTHWEST);
   }
 
   // chassis bottom middle button
   @FXML
   private void cbm_pressed() {
-    ugv.cmd_speed_control(MovingDirection.SOUTH);
+    repeat_chassis_cmd(MovingDirection.SOUTH);
   }
 
   // chassis bottom right button
   @FXML
   private void cbr_pressed() {
-    ugv.cmd_speed_control(MovingDirection.SOUTHEAST);
+    repeat_chassis_cmd(MovingDirection.SOUTHEAST);
   }
 
   @FXML
@@ -237,4 +239,33 @@ public class RcController {
     return "";
   }
 
+  private void repeat_gimbal_cmd(int delta_pan, int delta_tilt) {
+    gimbalTimer = new Timer();
+    gimbalTimer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        ugv.gimbal_step(delta_pan, delta_tilt);
+      }
+    }, 0, 50);
+  }
+
+  @FXML
+  private void gimbal_released() {
+    gimbalTimer.cancel();
+  }
+
+  private void repeat_chassis_cmd(MovingDirection direction) {
+    chassisTimer = new Timer();
+    chassisTimer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        ugv.cmd_speed_control(direction);
+      }
+    }, 0, 3000);
+  }
+
+  @FXML
+  private void chassis_released() {
+    chassisTimer.cancel();
+  }
 }
