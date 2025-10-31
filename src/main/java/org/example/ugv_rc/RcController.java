@@ -165,7 +165,7 @@ public class RcController {
   // chassis middle middle button
   @FXML
   private void cmm_pressed() {
-    repeat_chassis_cmd(MovingDirection.STOP);
+    ugv.cmd_speed_control(MovingDirection.STOP);
   }
 
   // chassis middle right button
