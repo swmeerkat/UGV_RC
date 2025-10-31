@@ -81,17 +81,6 @@ public class ESP32Client {
   }
 
   /*
-   * Set servo middle position
-   * Sets the actual servo position as new middle position
-   * Input:
-   *  - id: 1 - tilt servo, 2 - pan servo
-   */
-  public JsonNode set_middle_position(int servo) {
-    String cmd = "{\"T\":502,\"id\":" + servo + "}";
-    return get(cmd);
-  }
-
-  /*
    * CMD_SPEED_CTRL
    * Input:
    *  - L, R: speed of the wheel, value range 0.5 - -0.5
