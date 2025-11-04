@@ -7,6 +7,10 @@ import java.text.DecimalFormat;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import net.java.games.input.Component;
+import net.java.games.input.Controller;
+import net.java.games.input.Controller.Type;
+import net.java.games.input.ControllerEnvironment;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -226,6 +230,26 @@ public class RcController {
   @FXML
   protected void enterKeyboardControl() {
     // focus on button is sufficient
+  }
+
+  @FXML
+  protected void enterGamePadControl() {
+    Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+    boolean found = false;
+    for (Controller controller : controllers) {
+      if (controller.getType() == Type.GAMEPAD) {
+        if (controller.getName().contains("DualSense Edge")) {
+          found = true;
+          log.info("DualSense Edge found");
+          for (Component component : controller.getComponents()) {
+            log.info("{} {}", component.getName(), component.getPollData());
+          }
+        }
+      }
+    }
+    if (!found) {
+      log.error("No gamepad controller found");
+    }
   }
 
   private ESP32Client initUgv02Client(String host) {

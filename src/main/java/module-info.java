@@ -7,6 +7,7 @@ module org.example.ugv_rc {
   requires com.fasterxml.jackson.databind;
   requires org.slf4j;
   requires com.fasterxml.jackson.core;
+  requires jinput;
 
   opens org.example.ugv_rc to javafx.fxml;
   exports org.example.ugv_rc;
