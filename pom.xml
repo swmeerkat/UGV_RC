@@ -104,6 +104,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <!-- run with ./mvnw javafx:run -->
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
