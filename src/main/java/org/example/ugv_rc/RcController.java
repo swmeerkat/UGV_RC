@@ -38,7 +38,7 @@ public class RcController {
   private Stage stage;
   private ESP32Client ugv;
   private JetsonOrinNanoClient jetson;
-  private KeyboardController kbctrl;
+  private KeyboardController keyboardController;
   private Timer gimbalTimer;
   private Timer chassisTimer;
 
@@ -51,7 +51,7 @@ public class RcController {
     String jetson_host = properties.get("Jetson.host").toString();
     log.info("jetson host: {}", jetson_host);
     jetson = new JetsonOrinNanoClient(jetson_host);
-    kbctrl = new KeyboardController(ugv);
+    keyboardController = new KeyboardController(ugv);
     Timer feedbackTimer = new Timer();
     feedbackTimer.scheduleAtFixedRate(new TimerTask() {
       @Override
@@ -215,12 +215,12 @@ public class RcController {
 
   @FXML
   protected void keyPressed(KeyEvent event) {
-    kbctrl.keyPressed(event);
+    keyboardController.keyPressed(event);
   }
 
   @FXML
   protected void keyReleased(KeyEvent event) {
-    kbctrl.keyReleased(event);
+    keyboardController.keyReleased(event);
   }
 
   @FXML
