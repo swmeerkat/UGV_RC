@@ -46,17 +46,6 @@
       <version>2.18.2</version>
     </dependency>
     <dependency>
-      <groupId>net.java.jinput</groupId>
-      <artifactId>jinput</artifactId>
-      <version>${jinput.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.java.jinput</groupId>
-      <artifactId>jinput</artifactId>
-      <version>${jinput.version}</version>
-      <classifier>natives-all</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
@@ -113,7 +102,6 @@
           <options>
             <option>--enable-native-access=javafx.graphics</option>
             <option>--enable-native-access=ALL-UNNAMED</option>
-            <option>--enable-native-access=jinput</option>
           </options>
         </configuration>
       </plugin>

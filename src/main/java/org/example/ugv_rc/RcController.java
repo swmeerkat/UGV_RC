@@ -7,10 +7,6 @@ import java.text.DecimalFormat;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
-import net.java.games.input.Component;
-import net.java.games.input.Controller;
-import net.java.games.input.Controller.Type;
-import net.java.games.input.ControllerEnvironment;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -232,26 +228,6 @@ public class RcController {
     // focus on button is sufficient
   }
 
-  @FXML
-  protected void enterGamePadControl() {
-    Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-    boolean found = false;
-    for (Controller controller : controllers) {
-      if (controller.getType() == Type.GAMEPAD) {
-        if (controller.getName().contains("DualSense Edge")) {
-          found = true;
-          log.info("DualSense Edge found");
-          for (Component component : controller.getComponents()) {
-            log.info("{} {}", component.getName(), component.getPollData());
-          }
-        }
-      }
-    }
-    if (!found) {
-      log.error("No gamepad controller found");
-    }
-  }
-
   private ESP32Client initUgv02Client(String host) {
     ESP32Client ugv02 = new ESP32Client(host);
     log.info("Init gimbal: cmd_gimbal_ctrl_simple(0, 0)");
@@ -304,7 +280,7 @@ public class RcController {
       public void run() {
         ugv.cmd_speed_control(direction);
       }
-    }, 0, 3000);
+    }, 0, 2500);
   }
 
   @FXML

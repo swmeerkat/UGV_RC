@@ -101,7 +101,6 @@
     <Button text="INA219 data" onAction="#getInaData"/>
     <Button text="Keyboard control" onAction="#enterKeyboardControl"
       onKeyPressed="#keyPressed" onKeyReleased="#keyReleased"/>
-    <Button text="Gamepad control" onAction="#enterGamePadControl"/>
   </HBox>
 
 </VBox>
