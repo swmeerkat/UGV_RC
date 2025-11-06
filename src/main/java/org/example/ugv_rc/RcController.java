@@ -39,8 +39,8 @@ public class RcController {
   private ESP32Client ugv;
   private JetsonOrinNanoClient jetson;
   private KeyboardController keyboardController;
-  private Timer gimbalTimer;
-  private Timer chassisTimer;
+  private Timer gimbalTimer = null;
+  private Timer chassisTimer = null;
 
   @FXML
   private void initialize() {
@@ -259,6 +259,9 @@ public class RcController {
   }
 
   private void repeat_gimbal_cmd(int delta_pan, int delta_tilt) {
+    if (gimbalTimer != null) {
+      gimbalTimer.cancel();
+    }
     gimbalTimer = new Timer();
     gimbalTimer.scheduleAtFixedRate(new TimerTask() {
       @Override
@@ -274,13 +277,16 @@ public class RcController {
   }
 
   private void repeat_chassis_cmd(MovingDirection direction) {
+    if (chassisTimer != null) {
+      chassisTimer.cancel();
+    }
     chassisTimer = new Timer();
     chassisTimer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
         ugv.cmd_speed_control(direction);
       }
-    }, 0, 2500);
+    }, 0, 2900);
   }
 
   @FXML
